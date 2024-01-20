@@ -94,6 +94,16 @@ void MainWindow::readDatabase(){     // Прочитать базу данных
     file.close();
 }
 
+void MainWindow::writeDatabase(){    //Записать базу данных в файл
+    std::ofstream file("database.txt", std::ios::trunc);    //Открыть файл: Создать его, если не существует; Очистить, если существует.
+    if (file.is_open()) {
+        for (BasicBook* obj : database) {
+            file << obj->toString() << "\n";
+        }
+        file.close();
+    }
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
