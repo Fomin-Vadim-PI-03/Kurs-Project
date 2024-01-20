@@ -252,7 +252,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="Resources.qrc">
+           <iconset resource="../untitled4/test.qrc">
             <normaloff>:/new/prefix1/img/plus.png</normaloff>:/new/prefix1/img/plus.png</iconset>
           </property>
          </widget>
@@ -272,7 +272,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="Resources.qrc">
+           <iconset resource="../untitled4/test.qrc">
             <normaloff>:/new/prefix1/img/minus.png</normaloff>:/new/prefix1/img/minus.png</iconset>
           </property>
          </widget>
@@ -292,7 +292,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="Resources.qrc">
+           <iconset resource="../untitled4/test.qrc">
             <normaloff>:/new/prefix1/img/refresh.png</normaloff>:/new/prefix1/img/refresh.png</iconset>
           </property>
          </widget>
@@ -336,8 +336,59 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="Resources.qrc"/>
- </resources>
- <connections/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>RefreshButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>refreshDatabase()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>594</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>465</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>EditRefreshButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>refreshDatabase()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>632</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>DeleteItemButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>deleteDatabaseItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>579</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>328</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>refreshDatabase()</slot>
+  <slot>deleteDatabaseItem()</slot>
+ </slots>
 </ui>

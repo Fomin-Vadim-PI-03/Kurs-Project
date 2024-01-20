@@ -26,9 +26,13 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QString username, QWidget *parent = nullptr);   // Конструктор принимает имя пользователя, полученное из LoginForm
-    void readDatabase();        //Прочитать базу данных из файла
-    void writeDatabase();       //Записать базу данных в файл
+    void readDatabase();        // Прочитать базу данных из файла
+    void writeDatabase();       // Записать базу данных в файл
     ~MainWindow();
+
+public slots:
+    void refreshDatabase();     // slot: Обновить базу данных
+    void deleteDatabaseItem();  // slot: Удалить запись из базы данных
 
 private:
     Ui::MainWindow *ui;

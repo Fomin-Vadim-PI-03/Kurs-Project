@@ -19,6 +19,8 @@ MainWindow::MainWindow(QString username, QWidget *parent)
     proxyModel->setSourceModel(model);
     connect(ui->searchField, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterFixedString(const QString&)));    // Подключение ui->searchField к proxyModel для функционала поиска по списку
     ui->table->setModel(proxyModel);
+
+    this->refreshDatabase();
 }
 
 void MainWindow::readDatabase(){     // Прочитать базу данных из файла
@@ -94,13 +96,37 @@ void MainWindow::readDatabase(){     // Прочитать базу данных
     file.close();
 }
 
-void MainWindow::writeDatabase(){    //Записать базу данных в файл
+void MainWindow::writeDatabase(){    // Записать базу данных в файл
     std::ofstream file("database.txt", std::ios::trunc);    //Открыть файл: Создать его, если не существует; Очистить, если существует.
     if (file.is_open()) {
         for (BasicBook* obj : database) {
             file << obj->toString() << "\n";
         }
         file.close();
+    }
+}
+
+void MainWindow::refreshDatabase(){     // slot: Обновить базу данных
+    model->setRowCount(0);    // Очистить ui->table
+    this->readDatabase();
+    for (BasicBook* obj : database) {
+        QStandardItem *item = new QStandardItem(obj->toString().c_str());
+        model->appendRow(item);
+    }
+}
+
+void MainWindow::deleteDatabaseItem(){  // slot: Удалить запись из базы данных
+
+    QModelIndex selected = ui->table->currentIndex();   // Получение индекса выбранного элемента
+    if (selected.isValid())
+    {
+        QModelIndex sourceIndex = proxyModel->mapToSource(selected);    // Получение настоящего индекса элемента из model, а не из proxy (необходимо для функции поиска)
+        ui->table->model()->removeRow(selected.row());                  // Удаление записи из table
+        int index = sourceIndex.row();                                  // Перевод настоящего индекса элемента в int
+        if (index >= 0 && index < database.size())
+        {
+            database.erase(database.begin() + index);    // Удаление объекта из вектора
+        }
     }
 }
 
