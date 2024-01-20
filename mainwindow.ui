@@ -174,14 +174,14 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="giveBooksButton">
           <property name="text">
            <string>Выдача</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="receiveBooksButton">
           <property name="text">
            <string>Возврат</string>
           </property>
