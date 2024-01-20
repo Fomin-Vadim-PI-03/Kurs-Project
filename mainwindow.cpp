@@ -109,7 +109,7 @@ void MainWindow::writeDatabase(){    // Записать базу данных �
 void MainWindow::refreshDatabase(){     // slot: Обновить базу данных
     model->setRowCount(0);    // Очистить ui->table
     this->readDatabase();
-    for (BasicBook* obj : database) {
+    for (BasicBook* obj : database) {   // Составить table заново
         QStandardItem *item = new QStandardItem(obj->toString().c_str());
         model->appendRow(item);
     }
@@ -128,6 +128,11 @@ void MainWindow::deleteDatabaseItem(){  // slot: Удалить запись и�
             database.erase(database.begin() + index);    // Удаление объекта из вектора
         }
     }
+}
+
+void MainWindow::acceptDatabaseChanges(){   // slot: Принять изменения в базе данных
+    this->writeDatabase();
+    this->refreshDatabase();
 }
 
 MainWindow::~MainWindow()

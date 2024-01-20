@@ -33,6 +33,7 @@ public:
 public slots:
     void refreshDatabase();     // slot: Обновить базу данных
     void deleteDatabaseItem();  // slot: Удалить запись из базы данных
+    void acceptDatabaseChanges(); // slot: Принять изменения в базе данных
 
 private:
     Ui::MainWindow *ui;
