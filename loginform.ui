@@ -130,5 +130,25 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LoginForm</receiver>
+   <slot>SubmitCredentials()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>94</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>SubmitCredentials()</slot>
+ </slots>
 </ui>

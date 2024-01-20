@@ -14,10 +14,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QString username, QWidget *parent = nullptr);   // Конструктор принимает имя пользователя, полученное из LoginForm
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
+    QString username;
 };
 #endif // MAINWINDOW_H
