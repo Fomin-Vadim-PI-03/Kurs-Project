@@ -6,26 +6,338 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>670</width>
+    <height>391</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>АСУ &quot;Библиотека&quot;</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>11</y>
+      <width>651</width>
+      <height>254</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="WelcomeMessageLabel">
+         <property name="minimumSize">
+          <size>
+           <width>220</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="ClientMessageLabel">
+         <property name="text">
+          <string>Клиентов обслужено за сеанс: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="ClientCounterLabel">
+         <property name="minimumSize">
+          <size>
+           <width>30</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLineEdit" name="searchField">
+           <property name="placeholderText">
+            <string>Фильтр...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RefreshButton">
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Обновить список</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QListView" name="table">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>270</y>
+      <width>251</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <widget class="QWidget" name="layoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>231</width>
+       <height>58</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Выдача</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Возврат</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLineEdit" name="ClientNameLineEdit">
+          <property name="placeholderText">
+           <string>Имя клиента...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="BooksNumLineEdit">
+          <property name="placeholderText">
+           <string>Число копий книги...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>270</y>
+      <width>171</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <widget class="QWidget" name="layoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>145</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QPushButton" name="AddItemButton">
+          <property name="minimumSize">
+           <size>
+            <width>41</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="statusTip">
+           <string>Добавить запись</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/new/prefix1/img/plus.png</normaloff>:/new/prefix1/img/plus.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="DeleteItemButton">
+          <property name="minimumSize">
+           <size>
+            <width>41</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="statusTip">
+           <string>Удалить запись</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/new/prefix1/img/minus.png</normaloff>:/new/prefix1/img/minus.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="EditRefreshButton">
+          <property name="minimumSize">
+           <size>
+            <width>41</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="statusTip">
+           <string>Восстановить изменения</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/new/prefix1/img/refresh.png</normaloff>:/new/prefix1/img/refresh.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="AcceptChangesButton">
+        <property name="text">
+         <string>Принять изменения</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>270</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Фомин В.А., ФИТ, ПИ-22 
+АлтГТУ 2023-2024 г.</string>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>670</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
