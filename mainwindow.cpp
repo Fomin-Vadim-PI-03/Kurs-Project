@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <fstream>
+#include <sstream>
+
 MainWindow::MainWindow(QString username, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -16,6 +19,79 @@ MainWindow::MainWindow(QString username, QWidget *parent)
     proxyModel->setSourceModel(model);
     connect(ui->searchField, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterFixedString(const QString&)));    // Подключение ui->searchField к proxyModel для функционала поиска по списку
     ui->table->setModel(proxyModel);
+}
+
+void MainWindow::readDatabase(){     // Прочитать базу данных из файла
+
+    for (BasicBook* obj : database) {       // Очистить внутреннюю базу данных database
+        delete obj;
+    }
+    database.clear();
+
+    std::ifstream file("database.txt");
+    std::string line;
+
+    while (std::getline(file, line)) {      // Считывать файл "database.txt" пока не достигнут конец файла
+        std::istringstream iss(line);   // Переменная, в которую записывается очередная строка файла
+        std::string type;                                    // Временные переменные для инициализации объектов
+        std::string bookID, bookName;                        // ^^
+        int numOfCopiesTotal, numOfCopiesLeft, numOfPages;   // ^^
+
+        if (!(iss >> type >> bookID >> bookName >> numOfCopiesTotal >> numOfCopiesLeft >> numOfPages)) { continue; }    // При возникновении ошибки (неверно форматированная строка) - на следующий проход цикла
+
+        if (type == "BB") {
+            BasicBook* newBook = new BasicBook(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages);
+            database.push_back(newBook);
+        }
+        else if (type == "N") {
+            std::string genre, publisher;
+            int yearPublished;
+
+            if (!(iss >> genre >> publisher >> yearPublished)) { continue; }
+
+            Novel* newBook = new Novel(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, genre, publisher, yearPublished);
+            database.push_back(newBook);
+        }
+        else if (type == "CN") {
+            std::string genre, publisher, illustrator, ageGroup;
+            int yearPublished;
+
+            if (!(iss >> genre >> publisher >> yearPublished >> illustrator >> ageGroup)) { continue; }
+
+            ChildrenNovel* newBook = new ChildrenNovel(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, genre, publisher, yearPublished, illustrator, ageGroup);
+            database.push_back(newBook);
+        }
+        else if (type == "EB") {
+            std::string subject, level, author;
+
+            if (!(iss >> subject >> level >> author)) { continue; }
+
+            EducationalBook* newBook = new EducationalBook(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, subject, level, author);
+            database.push_back(newBook);
+        }
+        else if (type == "M") {
+            int issueNumber;
+            std::string month;
+            int year;
+
+            if (!(iss >> issueNumber >> month >> year)) { continue; }
+
+            Magazine* newBook = new Magazine(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, issueNumber, month, year);
+            database.push_back(newBook);
+        }
+        else if (type == "SM") {
+            int issueNumber;
+            std::string month, topic;
+            int year;
+
+            if (!(iss >> issueNumber >> month >> year >> topic)) { continue; }
+
+            ScienceMagazine* newBook = new ScienceMagazine(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, issueNumber, month, year, topic);
+            database.push_back(newBook);
+        }
+    }
+
+    file.close();
 }
 
 MainWindow::~MainWindow()
