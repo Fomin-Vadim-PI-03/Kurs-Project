@@ -10,14 +10,26 @@ CONFIG += c++17
 
 SOURCES += \
     additemdialog.cpp \
+    basicbook.cpp \
+    childrennovel.cpp \
+    educationalbook.cpp \
     loginform.cpp \
+    magazine.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    novel.cpp \
+    sciencemagazine.cpp
 
 HEADERS += \
     additemdialog.h \
+    basicbook.h \
+    childrennovel.h \
+    educationalbook.h \
     loginform.h \
-    mainwindow.h
+    magazine.h \
+    mainwindow.h \
+    novel.h \
+    sciencemagazine.h
 
 FORMS += \
     additemdialog.ui \
