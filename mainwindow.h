@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,6 +21,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QString username;
+    QString username;                    // Имя пользователя, полученное из LoginForm
+    QStandardItemModel *model;           // Модель для ui->table (QListView) - для хранения данных
+    QSortFilterProxyModel *proxyModel;   // Proxy для ui->table (QListView) - для системы поиска по списку
 };
 #endif // MAINWINDOW_H

@@ -9,6 +9,13 @@ MainWindow::MainWindow(QString username, QWidget *parent)
     ui->setupUi(this);
 
     ui->WelcomeMessageLabel->setText("Вы вошли как:  " + username);
+
+    this->model = new QStandardItemModel();
+    this->proxyModel = new QSortFilterProxyModel();
+
+    proxyModel->setSourceModel(model);
+    connect(ui->searchField, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterFixedString(const QString&)));    // Подключение ui->searchField к proxyModel для функционала поиска по списку
+    ui->table->setModel(proxyModel);
 }
 
 MainWindow::~MainWindow()
