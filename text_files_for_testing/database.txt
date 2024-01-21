@@ -1,0 +1,6 @@
+BB A000 The_Great_Gatsby 183 28 2000
+N 0001 Stellaris 10 5 20 Sci-fi GoodRead 1984
+CN 0002 Alice_in_Wonderland  7 6 38 Adventure BadRead 2001 Ivan_Ivan 0-3
+EB E003 Quantum_Physics_for_Kids  9999 0 5138 Quantum_Physics Beginner Josh_Doe
+M 0004 Forbes 10 10 24 824 January 2005
+SM 0005 Fuflo_Math 5 3 24 9 April 2023 Math_in_Space
