@@ -28,11 +28,13 @@ public:
     MainWindow(QString username, QWidget *parent = nullptr);   // Конструктор принимает имя пользователя, полученное из LoginForm
     void readDatabase();        // Прочитать базу данных из файла
     void writeDatabase();       // Записать базу данных в файл
+    void receiveSubmittedEntry(const QString &text);   // Получить строку, введенную в AddItemDialog
     ~MainWindow();
 
 public slots:
     void refreshDatabase();     // slot: Обновить базу данных
-    void deleteDatabaseItem();  // slot: Удалить запись из базы данных
+    void addDatabaseItem();     // slot: Добавить новый элемент в базу данных
+    void deleteDatabaseItem();  // slot: Удалить элемент из базы данных
     void acceptDatabaseChanges(); // slot: Принять изменения в базе данных
 
 private:

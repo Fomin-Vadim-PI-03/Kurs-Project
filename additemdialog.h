@@ -15,8 +15,14 @@ public:
     explicit AddItemDialog(QWidget *parent = nullptr);
     ~AddItemDialog();
 
+public slots:
+    void submitString();      // slot: Послать введенный текст в главную форму
+
 private:
     Ui::AddItemDialog *ui;
+
+signals:
+    void sendText(const QString &text);       // signal: Послать введенный текст в главную форму
 };
 
 #endif // ADDITEMDIALOG_H

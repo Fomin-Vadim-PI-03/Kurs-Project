@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "additemdialog.h"
 
+#include <QMessageBox>
 #include <fstream>
 #include <sstream>
 
@@ -115,7 +117,78 @@ void MainWindow::refreshDatabase(){     // slot: Обновить базу да�
     }
 }
 
-void MainWindow::deleteDatabaseItem(){  // slot: Удалить запись из базы данных
+void MainWindow::addDatabaseItem(){     // slot: Добавить новый элемент в базу данных
+    AddItemDialog *form = new AddItemDialog();
+    connect(form, &AddItemDialog::sendText, this, &MainWindow::receiveSubmittedEntry);   // Создать связь между сигналом (AddItemDialog::sendText) и слотом (MainWindow::receiveSubmittedEntry)
+    form->show();            // Вызов формы ввода нового элемента
+}
+
+void MainWindow::receiveSubmittedEntry(const QString &text){   // Получить строку, введенную в AddItemDialog, обработать строку по алгоритму, аналогичному readDatabase()
+    std::string s = text.toStdString();
+    std::istringstream iss(s);
+
+    std::string type;
+    std::string bookID, bookName;
+    int numOfCopiesTotal, numOfCopiesLeft, numOfPages;
+
+    if (!(iss >> type >> bookID >> bookName >> numOfCopiesTotal >> numOfCopiesLeft >> numOfPages)) { QMessageBox::warning(this, "Ошибка", "Неверный формат строки."); return; }    // При возникновении ошибки (неверно форматированная информация)
+
+    if (type == "BB") {
+        BasicBook* newBook = new BasicBook(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages);
+        database.push_back(newBook);
+    }
+    else if (type == "N") {
+        std::string genre, publisher;
+        int yearPublished;
+
+        if (!(iss >> genre >> publisher >> yearPublished)) { QMessageBox::warning(this, "Ошибка", "Неверный формат строки."); return; }
+
+        Novel* newBook = new Novel(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, genre, publisher, yearPublished);
+        database.push_back(newBook);
+    }
+    else if (type == "CN") {
+        std::string genre, publisher, illustrator, ageGroup;
+        int yearPublished;
+
+        if (!(iss >> genre >> publisher >> yearPublished >> illustrator >> ageGroup)) { QMessageBox::warning(this, "Ошибка", "Неверный формат строки."); return; }
+
+        ChildrenNovel* newBook = new ChildrenNovel(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, genre, publisher, yearPublished, illustrator, ageGroup);
+        database.push_back(newBook);
+    }
+    else if (type == "EB") {
+        std::string subject, level, author;
+
+        if (!(iss >> subject >> level >> author)) { QMessageBox::warning(this, "Ошибка", "Неверный формат строки."); return; }
+
+        EducationalBook* newBook = new EducationalBook(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, subject, level, author);
+        database.push_back(newBook);
+    }
+    else if (type == "M") {
+        int issueNumber;
+        std::string month;
+        int year;
+
+        if (!(iss >> issueNumber >> month >> year)) { QMessageBox::warning(this, "Ошибка", "Неверный формат строки."); return; }
+
+        Magazine* newBook = new Magazine(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, issueNumber, month, year);
+        database.push_back(newBook);
+    }
+    else if (type == "SM") {
+        int issueNumber;
+        std::string month, topic;
+        int year;
+
+        if (!(iss >> issueNumber >> month >> year >> topic)) { QMessageBox::warning(this, "Ошибка", "Неверный формат строки."); return; }
+
+        ScienceMagazine* newBook = new ScienceMagazine(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, issueNumber, month, year, topic);
+        database.push_back(newBook);
+    }
+
+    QStandardItem *item = new QStandardItem(s.c_str());    // Отразить изменения в ui->table
+    model->appendRow(item);                                // ^^
+}
+
+void MainWindow::deleteDatabaseItem(){  // slot: Удалить элемент из базы данных
 
     QModelIndex selected = ui->table->currentIndex();   // Получение индекса выбранного элемента
     if (selected.isValid())
