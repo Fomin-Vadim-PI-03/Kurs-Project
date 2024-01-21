@@ -7,21 +7,21 @@ std::string BasicBook::toString() const {
     return "BB " + bookID + " " + bookName + " " + std::to_string(numOfCopiesTotal) + " " + std::to_string(numOfCopiesLeft) + " " + std::to_string(numOfPages);
 }
 
-bool BasicBook::giveCopies(int numOfCopiesToGive){
+bool BasicBook::giveCopies(int numOfCopiesToGive){            // Прибавить к numOfCopiesLeft
     if((numOfCopiesLeft >= numOfCopiesToGive) && (numOfCopiesToGive > 0)){
         numOfCopiesLeft -= numOfCopiesToGive;
         return true;
     }else{
-        return false;
+        return false;  // Возвращает false, если операция не прошла успешно
     }
 }
 
-bool BasicBook::receiveCopies(int numOfCopiesToReceive){
+bool BasicBook::receiveCopies(int numOfCopiesToReceive){      // Отнять от numOfCopiesLeft
     if((numOfCopiesLeft + numOfCopiesToReceive <= numOfCopiesTotal) && (numOfCopiesToReceive > 0)){
         numOfCopiesLeft += numOfCopiesToReceive;
         return true;
     }else{
-        return false;
+        return false;  // Возвращает false, если операция не прошла успешно
     }
 }
 

@@ -8,8 +8,8 @@ class BasicBook
 public:
     BasicBook(std::string bookID, std::string bookName, int numOfCopiesTotal, int numOfCopiesLeft, int numOfPages);
     virtual std::string toString() const;
-    bool giveCopies(int numOfCopiesToGive);
-    bool receiveCopies(int numOfCopiesToReceive);
+    bool giveCopies(int numOfCopiesToGive);            // Возвращает false, если операция не прошла успешно - прибавить к numOfCopiesLeft
+    bool receiveCopies(int numOfCopiesToReceive);      // Возвращает false, если операция не прошла успешно - отнять от numOfCopiesLeft
     std::string getID();
 
 

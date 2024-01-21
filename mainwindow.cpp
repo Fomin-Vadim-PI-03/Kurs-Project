@@ -301,4 +301,9 @@ void MainWindow::receiveBook(){         // slot: Получить (вернут�
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete model;
+    delete proxyModel;
+    for (BasicBook* obj : this->database) {
+        delete obj;
+    }
 }
