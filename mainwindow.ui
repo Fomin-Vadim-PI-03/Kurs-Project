@@ -420,11 +420,45 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>giveBooksButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>giveBook()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>316</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>receiveBooksButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>receiveBook()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>64</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>refreshDatabase()</slot>
   <slot>deleteDatabaseItem()</slot>
   <slot>acceptDatabaseChanges()</slot>
   <slot>addDatabaseItem()</slot>
+  <slot>giveBook()</slot>
+  <slot>receiveBook()</slot>
  </slots>
 </ui>

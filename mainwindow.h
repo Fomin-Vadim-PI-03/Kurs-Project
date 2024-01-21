@@ -36,6 +36,8 @@ public slots:
     void addDatabaseItem();     // slot: Добавить новый элемент в базу данных
     void deleteDatabaseItem();  // slot: Удалить элемент из базы данных
     void acceptDatabaseChanges(); // slot: Принять изменения в базе данных
+    void giveBook();            // slot: Выдать копии книги
+    void receiveBook();         // slot: Получить (вернуть) копии книги
 
 private:
     Ui::MainWindow *ui;
@@ -43,5 +45,6 @@ private:
     std::vector<BasicBook*> database;    // База данных книг библиотеки
     QStandardItemModel *model;           // Модель для ui->table (QListView) - для хранения данных
     QSortFilterProxyModel *proxyModel;   // Proxy для ui->table (QListView) - для системы поиска по списку
+    int clientsServed;                   // Кол-во обслуженных клиентов за сеанс
 };
 #endif // MAINWINDOW_H

@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "additemdialog.h"
@@ -5,6 +7,8 @@
 #include <QMessageBox>
 #include <fstream>
 #include <sstream>
+#include <ctime>
+
 
 MainWindow::MainWindow(QString username, QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +16,8 @@ MainWindow::MainWindow(QString username, QWidget *parent)
     , username(username)
 {
     ui->setupUi(this);
+
+    clientsServed = 0;
 
     ui->WelcomeMessageLabel->setText("Вы вошли как:  " + username);
 
@@ -206,6 +212,90 @@ void MainWindow::deleteDatabaseItem(){  // slot: Удалить элемент �
 void MainWindow::acceptDatabaseChanges(){   // slot: Принять изменения в базе данных
     this->writeDatabase();
     this->refreshDatabase();
+}
+
+void MainWindow::giveBook(){                // slot: Выдать копии книги
+    QModelIndex selected = ui->table->currentIndex();         // Получение индекса выбранного элемента
+    if (selected.isValid())   //Проверка - Выбрана ли запись в table?
+    {
+        if(!(ui->BooksNumLineEdit->text().isEmpty()) && !(ui->ClientNameLineEdit->text().isEmpty())){   //Проверка - введены ли Имя Пользователя и Количество Копий?
+            QModelIndex sourceIndex = proxyModel->mapToSource(selected);    // Получение настоящего индекса элемента из model, а не из proxy (необходимо для функции поиска)
+            int index = sourceIndex.row();                                  // Перевод настоящего индекса элемента в int
+            if (index >= 0 && index < database.size())   //Доп. проверка - Имеет ли индекс вектора допустимое значение?
+            {
+                if(!(database[index]->giveCopies(ui->BooksNumLineEdit->text().toInt()))){
+                    QMessageBox::warning(this, "Ошибка", "Ошибка при выдаче.\nНедостаточно книг для выдачи или введено неверное значение.");
+                }
+                else {
+                    std::ofstream file;
+                    file.open("logbook.txt", std::ios::app);
+
+                    if (!file.is_open()) {
+                        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл лога.");
+                    }else{
+                        std::time_t now = std::time(nullptr);      // Для вывода локального времени в лог (logbook.txt)
+                        std::tm* ptm = std::localtime(&now);       // ^^
+                        char buffer[32];                           // ^^
+                        std::strftime(buffer, sizeof(buffer), "%d.%m.%Y %H:%M:%S: ", ptm);
+
+                        std::string timeStr = buffer;
+
+                        file << timeStr << username.toStdString() << " выдал(-а) книгу " << database[index]->getID() << " клиенту " << ui->ClientNameLineEdit->text().toStdString() << " в кол-ве " << ui->BooksNumLineEdit->text().toStdString() << " шт." << std::endl;
+                        file.close();
+                    }
+
+                    this->writeDatabase();
+                    this->refreshDatabase();
+
+                    ui->ClientCounterLabel->setNum(++clientsServed);
+                }
+            }
+        }else{
+            QMessageBox::warning(this, "Ошибка", "Введите число копий и имя клиента.");
+        }
+    }
+}
+
+void MainWindow::receiveBook(){         // slot: Получить (вернуть) копии книги
+    QModelIndex selected = ui->table->currentIndex();         // Получение индекса выбранного элемента
+    if (selected.isValid())   //Проверка - Выбрана ли запись в table?
+    {
+        if(!(ui->BooksNumLineEdit->text().isEmpty()) && !(ui->ClientNameLineEdit->text().isEmpty())){   //Проверка - введены ли Имя Пользователя и Количество Копий?
+            QModelIndex sourceIndex = proxyModel->mapToSource(selected);    // Получение настоящего индекса элемента из model, а не из proxy (необходимо для функции поиска)
+            int index = sourceIndex.row();                                  // Перевод настоящего индекса элемента в int
+            if (index >= 0 && index < database.size())   //Доп. проверка - Имеет ли индекс вектора допустимое значение?
+            {
+                if(!(database[index]->receiveCopies(ui->BooksNumLineEdit->text().toInt()))){
+                    QMessageBox::warning(this, "Ошибка", "Ошибка при выдаче.\nСлишком много книг для возврата или введено неверное значение.");
+                }
+                else {
+                    std::ofstream file;
+                    file.open("logbook.txt", std::ios::app);
+
+                    if (!file.is_open()) {
+                        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл лога.");
+                    }else{
+                        std::time_t now = std::time(nullptr);      // Для вывода локального времени в лог (logbook.txt)
+                        std::tm* ptm = std::localtime(&now);       // ^^
+                        char buffer[32];                           // ^^
+                        std::strftime(buffer, sizeof(buffer), "%d.%m.%Y %H:%M:%S: ", ptm);
+
+                        std::string timeStr = buffer;
+
+                        file << timeStr << username.toStdString() << " принял(-а) книгу " << database[index]->getID() << " от клиента " << ui->ClientNameLineEdit->text().toStdString() << " в кол-ве " << ui->BooksNumLineEdit->text().toStdString() << " шт." << std::endl;
+                        file.close();
+                    }
+
+                    this->writeDatabase();
+                    this->refreshDatabase();
+
+                    ui->ClientCounterLabel->setNum(++clientsServed);
+                }
+            }
+        }else{
+            QMessageBox::warning(this, "Ошибка", "Введите число копий и имя клиента.");
+        }
+    }
 }
 
 MainWindow::~MainWindow()
