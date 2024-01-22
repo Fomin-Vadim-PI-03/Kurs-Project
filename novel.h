@@ -13,6 +13,7 @@ protected:
     std::string genre;
     std::string publisher;
     int yearPublished;
+
 };
 
 #endif // NOVEL_H

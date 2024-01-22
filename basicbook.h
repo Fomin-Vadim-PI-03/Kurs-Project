@@ -10,7 +10,7 @@ public:
     virtual std::string toString() const;
     bool giveCopies(int numOfCopiesToGive);            // Возвращает false, если операция не прошла успешно - прибавить к numOfCopiesLeft
     bool receiveCopies(int numOfCopiesToReceive);      // Возвращает false, если операция не прошла успешно - отнять от numOfCopiesLeft
-    std::string getID();
+    std::string getID();                               // Получить bookID
 
 
 protected:
@@ -19,6 +19,7 @@ protected:
     int numOfCopiesTotal;
     int numOfCopiesLeft;
     int numOfPages;
+
 };
 
 #endif // BASICBOOK_H

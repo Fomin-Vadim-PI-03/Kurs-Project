@@ -13,6 +13,7 @@ protected:
     std::string subject;
     std::string level;
     std::string author;
+
 };
 
 #endif // EDUCATIONALBOOK_H

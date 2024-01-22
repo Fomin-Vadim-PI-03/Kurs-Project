@@ -11,6 +11,7 @@ public:
 
 protected:
     std::string topic;
+
 };
 
 #endif // SCIENCEMAGAZINE_H

@@ -12,6 +12,7 @@ public:
 protected:
     std::string illustrator;
     std::string ageGroup;
+
 };
 
 #endif // CHILDRENNOVEL_H

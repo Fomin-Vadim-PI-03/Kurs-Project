@@ -1,5 +1,6 @@
 #include "sciencemagazine.h"
 
+
 ScienceMagazine::ScienceMagazine(std::string bookID, std::string bookName, int numOfCopiesTotal, int numOfCopiesLeft, int numOfPages, int issueNumber, std::string month, int year, std::string topic) :
     Magazine(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages, issueNumber, month, year), topic(topic) {}
 

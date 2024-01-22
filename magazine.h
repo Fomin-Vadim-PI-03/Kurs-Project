@@ -13,6 +13,7 @@ protected:
     int issueNumber;
     std::string month;
     int year;
+
 };
 
 #endif // MAGAZINE_H

@@ -1,5 +1,6 @@
 #include "novel.h"
 
+
 Novel::Novel(std::string bookID, std::string bookName, int numOfCopiesTotal, int numOfCopiesLeft, int numOfPages, std::string genre, std::string publisher, int yearPublished) :
     BasicBook(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages), genre(genre), publisher(publisher), yearPublished(yearPublished) {}
 

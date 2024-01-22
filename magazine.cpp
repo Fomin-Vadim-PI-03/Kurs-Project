@@ -1,5 +1,6 @@
 #include "magazine.h"
 
+
 Magazine::Magazine (std::string bookID, std::string bookName, int numOfCopiesTotal, int numOfCopiesLeft, int numOfPages, int issueNumber, std::string month, int year) :
     BasicBook(bookID, bookName, numOfCopiesTotal, numOfCopiesLeft, numOfPages), issueNumber(issueNumber), month(month), year(year) {}
 
